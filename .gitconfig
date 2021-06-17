@@ -1,0 +1,34 @@
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	diffs = diff --staged
+	unstage = reset HEAD --
+	last = log -1 HEAD -p
+	lga = log --oneline -30
+	addp = add -p .
+	lg = log --all --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -30
+[user]
+	email = kevin.deffke@iu.org
+	name = Kevin Deffke
+[merge]
+	tool = vscode
+[core]
+	excludesfile = /Users/kevin.deffke/.gitignore_global
+	editor = code --wait
+	pager = less -+$LESS -RS
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/kevin.deffke/.stCommitMsg
+[mergetool "vscode"]
+	cmd = code -n --wait \"$MERGED\"
+[diff]
+	tool = vscode
+[difftool "vscode"]
+	cmd = code -n --wait --diff $LOCAL $REMOTE
