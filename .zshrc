@@ -1,3 +1,8 @@
+
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the start of this file.
+[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
+#### END FIG ENV VARIABLES ####
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -42,7 +47,7 @@ alias unstage='git unstage'
 alias last='git last'
 alias addp='git addp'
 alias lg='git lg'
-alias pull='git pull'
+alias pull='git restore humery.xcworkspace/xcshareddata/swiftpm/Package.resolved; git pull'
 alias push='git push'
 alias pushf='git push --force-with-lease'
 alias pushu='git push --set-upstream origin HEAD'
@@ -54,3 +59,29 @@ alias stashlist='git stash list'
 alias pop='git stash pop'
 alias diff='git diff'
 alias diffs='git diffs'
+
+# git functions
+
+function getCurrentTicket {
+    echo $(git symbolic-ref --short -q HEAD | sed -n 's/.*\(APP-[0-9]*\)-.*/\1/p')
+}
+function cim {
+    ticket=$(getCurrentTicket)
+    ci "$ticket $*"
+}
+function rbm {
+    local branch="${1:-main}"
+    git fetch
+    git rebase origin/$branch 
+}
+function rbmF {
+    local branch="${1:-main}"
+    git fetch
+    git rebase origin/$branch
+    pushf
+}
+
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the end of this file.
+[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
+#### END FIG ENV VARIABLES ####
